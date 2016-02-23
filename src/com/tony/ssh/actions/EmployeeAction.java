@@ -61,7 +61,7 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 			}
 		}
 
-		return "delete";
+		return "ajax-success";
 
 	}
 
@@ -72,6 +72,14 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 
 	}
 
+	public void prepareInput() {
+		if (id != null) {
+
+			model = employeeService.get(id);
+		}
+
+	}
+
 	public String list() {
 
 		request.put("employees", employeeService.getAll());
@@ -79,21 +87,53 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 		return "list";
 	}
 
-	public String save(){
-		
+	public String save() {
+
+		if (id == null) {
+
+			model.setCreateTime(new Date());
+
+		}
+
 		System.out.println(model);
-		
-		model.setCreateTime(new Date());
+
 		employeeService.saveOrUpdate(model);
-		
+
 		return SUCCESS;
 	}
-	
-	public void prepareSave(){
-		
-		model = new Employee();
+
+	public void prepareSave() {
+
+		if (id == null) {
+			model = new Employee();
+		} else {
+
+			model = employeeService.get(id);
+
+		}
+
 	}
-	
+
+	private String lastName;
+
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+
+	public String validateLastName() throws UnsupportedEncodingException {
+
+		if (employeeService.lastNameIsValid(lastName)) {
+			inputStream = new ByteArrayInputStream("1".getBytes("UTF-8"));
+
+		} else {
+
+			inputStream = new ByteArrayInputStream("0".getBytes("UTF-8"));
+
+		}
+
+		return "ajax-success";
+	}
+
 	private Map<String, Object> request;
 
 	@Override
@@ -108,13 +148,10 @@ public class EmployeeAction extends ActionSupport implements RequestAware, Model
 	}
 
 	private Employee model;
-	
-	
-	
+
 	@Override
 	public Employee getModel() {
 
-		
 		return model;
 	}
 

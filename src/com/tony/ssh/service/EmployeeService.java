@@ -19,6 +19,15 @@ public class EmployeeService {
 		
 	}
 	
+	public boolean lastNameIsValid(String lastName){
+		
+		
+		return employeeDao.getEmployeeByLastName(lastName) == null;
+		
+	}
+	
+	
+	
 	public void delet(Integer id){
 		
 		employeeDao.delete(id);
@@ -31,6 +40,13 @@ public class EmployeeService {
 		List<Employee> employees = employeeDao.getAll();
 		
 		return employees;
+	}
+
+	public Employee get(Integer id) {
+		
+		
+		
+		return employeeDao.get(id);
 	}
 	
 	

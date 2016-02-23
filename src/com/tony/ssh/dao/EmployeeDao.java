@@ -2,8 +2,7 @@ package com.tony.ssh.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
+import org.hibernate.Query;
 
 import com.tony.ssh.entities.Employee;
 
@@ -29,5 +28,23 @@ public class EmployeeDao extends BaseDao {
 		getSession().saveOrUpdate(employee);
 		
 	}
+	
+	public Employee getEmployeeByLastName(String lastName){
+		
+		String hql = "FROM Employee e WHERE e.lastName = ?";
+		
+		Query query = getSession().createQuery(hql).setString(0, lastName);
+		
+		return (Employee) query.uniqueResult();
+		
+		
+	}
+
+	public Employee get(Integer id) {
+
+		return getSession().get(Employee.class, id);
+		
+	}
+	
 	
 }
