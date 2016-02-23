@@ -10,6 +10,20 @@
 
 	<package name="default" namespace="/" extends="struts-default">
 
+		<interceptors>
+			<interceptor-stack name="sshStack">
+				<interceptor-ref name="paramsPrepareParamsStack">
+					<param name="prepare.alwaysInvokePrepare">false</param>
+
+				</interceptor-ref>
+
+			</interceptor-stack>
+
+		</interceptors>
+		
+		<default-interceptor-ref name="sshStack"></default-interceptor-ref>
+
+
 		<action name="emp-*" class="employeeAction" method="{1}">
 			<result name="list">/WEB-INF/views/emp-list.jsp</result>
 
@@ -17,7 +31,8 @@
 				<param name="contentType">text/html</param>
 				<param name="inputName">inputStream</param>
 			</result>
-
+			<result name="input">/WEB-INF/views/emp-input.jsp</result>
+			<result name="success" type="redirect">/emp-list</result>
 		</action>
 
 

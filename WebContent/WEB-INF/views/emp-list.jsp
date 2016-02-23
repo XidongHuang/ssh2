@@ -10,33 +10,36 @@
 <script type="text/javascript">
 	$(function() {
 
-		$(".delete").click(function() {
+		$(".delete").click(
+				function() {
 
-			var lastName = $(this).next(":input").val();
-			var flag = confirm("Do you want to delete " + lastName +" information?");
+					var lastName = $(this).next(":input").val();
+					var flag = confirm("Do you want to delete " + lastName
+							+ " information?");
 
-			if (flag) {
-				var $tr = $(this).parent().parent();
-				var url = this.href;
-				var args = {"time":new Date()};
-				$.post(url, args, function(data){
-					if(data =="1"){
-							alert("Delete Successfully!");
-							$tr.remove();
-						}else {
+					if (flag) {
+						var $tr = $(this).parent().parent();
+						var url = this.href;
+						var args = {
+							"time" : new Date()
+						};
+						$.post(url, args, function(data) {
+							if (data == "1") {
+								alert("Delete Successfully!");
+								$tr.remove();
+							} else {
 
-							alert("Delete Unsuccessfully!");
+								alert("Delete Unsuccessfully!");
 
 							}
 
+						});
 
-					});
-				
-			}
+					}
 
-			return false;
+					return false;
 
-		});
+				});
 
 	})
 </script>
@@ -67,8 +70,10 @@
 						<td>${id}</td>
 						<td>${lastName}</td>
 						<td>${email}</td>
-						<td>${birth}</td>
-						<td>${createTime}</td>
+						<td>
+							<s:date name="birth" format="yyyy-MM-dd"/>
+						</td>
+						<td><s:date name="birth" format="yyyy-MM-dd hh:mm:ss"/></td>
 						<td>${department.departmentName}</td>
 						<td><a href="emp-delete?id=${id}" class="delete">Delete</a> <input
 							type="hidden" value="${lastName }" /></td>

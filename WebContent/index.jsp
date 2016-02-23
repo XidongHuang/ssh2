@@ -8,6 +8,11 @@
 </head>
 <body>
 	<a href="emp-list">List All Employees</a>
+	
+	<br><br>
+	
+	<a href="emp-input">Employee Input</a>
+	
 
 </body>
 </html>
